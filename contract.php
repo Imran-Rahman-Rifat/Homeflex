@@ -13,16 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
-    
-    
+    <?php include 'navbar.php'; ?>    
     <div class="banner-image-2 w-100 vh-100 d-flex justify-content-center align-items-center">
         <div class="content text-center">
             <h1 class="text-white pb-5">CONTACT US</h1>
         </div>       
-     </div>
-
-     
+     </div>     
     <div class="container my-5">
         <h1 class="text-center my-4">You're Welcome to Visit</h1></br></br>
         <div class="row">
@@ -60,9 +56,7 @@
                 <p>Sunday: 9am - 10pm</p>
             </div>
         </div>
-    </div>
-    
+    </div>   
     <?php include 'footer.html'; ?>
-
 </body>
 </html>

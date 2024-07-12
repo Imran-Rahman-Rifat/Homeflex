@@ -2,7 +2,7 @@
 <?php session_start(); ?>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3" style="background-color:black;">
     <div class="container">
-        <a href="homepage.php" class="navbar-brand ">Home Flex</a>
+        <a href="homepage.php" class="navbar-brand">Home Flex</a>
         <button
             type="button"
             class="navbar-toggler"
@@ -18,53 +18,60 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="mx-auto"></div>
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link text-white" href="homepage.php">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="about.php">About</a>
-              </li>
-              <?php
-              if(isset($_SESSION['account_type']) && $_SESSION['account_type'] == 'Owner'){
-                echo '<li class="nav-item">
-                <a class="nav-link text-white" href="#">Add Appartment</a>
-                </li>';
-              }
-              ?>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="ManageRental.php">ManageRentals</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="contract.php">Contact </a>
-              </li>
-              <?php
-              if(!isset($_SESSION['isLoggedin']) || $_SESSION['isLoggedin'] == false){
-                echo '<li class="nav-item">
-                <!-- <i class="fa-solid fa-user  fa-1x text-dark rounded-circle p-2 bg-light"></i> -->
-                <a class="nav-link text-white" href="login.php">LogIn</a>
-                </li>';
-              }
-              else{
-                echo '<li class="nav-item">
-                <!-- <i class="fa-solid fa-user  fa-1x text-dark rounded-circle p-2 bg-light"></i> -->
-                <a class="nav-link text-white" href="logout.php">Profile</a>
-                </li>';
-              }
-              ?>              
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="homepage.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="about.php">About</a>
+                </li>
+                <?php
+                if(isset($_SESSION['account_type']) && $_SESSION['account_type'] == 'Owner'){
+                    echo '<li class="nav-item">
+                    <a class="nav-link text-white" href="addApartment.php">Add Apartment</a>
+                    </li>';
+                }
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="ManageRental.php">Manage Rentals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="contact.php">Contact</a>
+                </li>
+                <?php
+                if(!isset($_SESSION['isLoggedin']) || $_SESSION['isLoggedin'] == false){
+                    echo '<li class="nav-item">
+                    <a class="nav-link text-white" href="login.php">Log In</a>
+                    </li>';
+                } else {
+                ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php
+                }
+                ?>              
             </ul>
         </div>
     </div>
- </nav>
- <!-- Javascript Code -->
+</nav>
+<!-- Javascript Code -->
 <script src="js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-  var nav = document.querySelector('nav');
+    var nav = document.querySelector('nav');
 
-  window.addEventListener('scroll', function () {
-    if (window.pageYOffset > 10) {
-      nav.classList.add('bg-dark', 'shadow');
-    } else {
-      nav.classList.remove('bg-dark', 'shadow');
-    }
-  });
+    window.addEventListener('scroll', function () {
+        if (window.pageYOffset > 10) {
+            nav.classList.add('bg-dark', 'shadow');
+        } else {
+            nav.classList.remove('bg-dark', 'shadow');
+        }
+    });
 </script>

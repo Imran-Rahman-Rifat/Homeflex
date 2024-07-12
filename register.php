@@ -31,10 +31,10 @@ if( isset( $_POST['submit'] )){
         $password = $_POST['password'];
         $confirm_password = $_POST['confirm_password'];
         $account_type = $_POST['account_type'] === 'Owner' ? 'Owner' : 'Resident';
-        if (!strcmp($password, $confirm_password)) {
+        /*if (!strcmp($password, $confirm_password)) {
             $errPass = 1;
             $flag = 0;
-        }
+        }*/
         if (strlen($password) < 8 || strlen($password) > 32) {
             $errPass = 2;
             $flag = 0;
