@@ -68,16 +68,13 @@
           </div>
 
           <div class="custom-form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            <label for="password">Old Password</label>
+            <input type="password" class="form-control" id="old_password" name="old_password" placeholder="old Password" required>
           </div>
 
           <div class="custom-form-group">
-            <label for="notifications">Notifications</label>
-            <select class="form-control" id="notifications" name="notifications">
-              <option value="on">On</option>
-              <option value="off">Off</option>
-            </select>
+            <label for="password">New Password</label>
+            <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password" required>
           </div>
 
           <button type="submit" class="btn custom-btn-save btn-block">Save Changes</button>
