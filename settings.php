@@ -4,48 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomeFlex - Settings</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-
-    .custom-container {
-      max-width: 600px;
-      margin: 50px auto;
-    }
-
-    .custom-card {
-      border: none;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-
-    .custom-card-body {
-      padding: 2rem;
-    }
-
-    .custom-form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .custom-h2 {
-      color: #343a40;
-    }
-
-    .custom-label {
-      font-weight: bold;
-    }
-
-    .custom-btn-save {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-    }
-
-    .custom-btn-save:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <!-- css file link -->
+  <link rel="stylesheet" href="index.css">
+  <!-- Bootstrap link -->
+  <link rel="stylesheet"href="css/bootstrap.min.css"></link>
+  <scrip scr="js/bootstrap.bundle.min.js"></scrip>
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <?php include "navbar.php" ?>
@@ -77,7 +42,7 @@
             <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password" required>
           </div>
 
-          <button type="submit" class="btn custom-btn-save btn-block">Save Changes</button>
+          <button type="submit" class="btn btn-primary custom-btn-save btn-block">Save Changes</button>
         </form>
       </div>
     </div>

@@ -12,7 +12,8 @@ if(isset($_POST['submit'])){
         $_SESSION['account_type'] = $row['account_type'];
         $_SESSION['isLoggedin'] = true;
         $_SESSION['email'] = $email;
-        $user=$row['user_id'];
+        $user = $row['user_id'];
+        $_SESSION['user_id'] = $user;
         if($row['account_type'] == 'Owner'){
             $query = "SELECT username,phone_num,owner_id FROM owner WHERE user_id = '$user'";
             $res = $conn -> query($query);

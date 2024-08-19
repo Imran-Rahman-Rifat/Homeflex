@@ -4,39 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomeFlex - User Profile</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-
-    h1 {
-      color: #343a40;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      border: none;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-      margin-bottom: 20px;
-    }
-
-    .profile-pic {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .btn-edit {
-      margin-top: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <?php include "navbar.php" ?>
+  <?php include "navbar.php";
+  include "dbconfig.php";
+  ?>
   </br> </br> </br>
+  <?php
+  if(isset($_GET['id']) && $_GET['id'] != 0 && $_GET['id'] != -1){
+    $booking_resident_id = $_GET['id'];
+    if(isset($_GET['x']) && $_GET['x']==1) 
+      $sql1 = "SELECT * FROM resident inner join users on resident.user_id = users.user_id where resident.resident_id ='$booking_resident_id'";
+    else
+      $sql1 = "SELECT * FROM owner inner join users on owner.user_id = users.user_id where owner.owner_id ='$booking_resident_id'";
+    //$sql1 = "SELECT * FROM resident inner join users on resident.user_id = users.user_id where resident.resident_id ='$booking_resident_id'";
+    $result1 = $conn -> query($sql1);
+    $row1 = $result1->fetch_assoc();
+    $_SESSION['username__'] = $row1['username'];
+    $_SESSION['phone_num__'] = $row1['phone_num'];
+    $_SESSION['email__'] = $row1['email'];
+    $_SESSION['account_type__'] = $row1['account_type'];
+    $_SESSION['user_id__'] = $row1['user_id'];
+  }
+  ?>
   <div class="container my-4">
     <h1 class="text-center mb-4">User Profile</h1>
     <div class="row">
@@ -44,8 +40,25 @@
         <div class="card">
           <div class="card-body">
             <img src="./img/profile.png" alt="Profile Picture" class="profile-pic mb-3">
-            <h3><?php echo $_SESSION['username']?></h3>
-            <!--<button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>-->
+            <?php
+            if((!empty($_SESSION['owner_id']) && $_GET['id'] != -1 && !($_SESSION['owner_id'] == $_SESSION['owner_id_'])) || (!empty($_SESSION['resident_id']) && $_GET['id'] != -1))
+            {
+            ?>
+            <div class="text-white position-absolute end-0 top-0 m-0 py-1 px-3">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#editReportModal">Report</button>
+            </div>
+            <?php
+            }
+            ?>
+            <h3><?php 
+            if(isset($_GET['id'])){
+              $id = $_GET['id'];
+              if($id == -1) echo $_SESSION['username'];
+              else if($id == 0) echo $_SESSION['username_'];
+              else echo $_SESSION['username__'];
+            }
+            ?>
+            </h3>
           </div>
         </div>
       </div>
@@ -53,11 +66,58 @@
         <div class="card">
           <div class="card-body">
             <h4>Personal Information</h4>
-            <p>Name: <strong><?php echo $_SESSION['username']?></strong></p>
-            <p>Email: <strong><?php echo $_SESSION['email']?></strong></p>
-            <p>Phone: <strong><?php echo $_SESSION['phone_num']?></strong></p>
-            <p>Acoount Type: <strong><?php echo $_SESSION['account_type']?></strong></p>
+            <p>Name: <strong><?php
+             if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                if($id == -1) echo $_SESSION['username'];
+                else if($id == 0) echo $_SESSION['username_'];
+                else echo $_SESSION['username__'];
+              }
+             ?>
+             </strong></p>
+            <p>Email: <strong><?php
+             if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                if($id == -1) echo $_SESSION['email'];
+                else if($id == 0) echo $_SESSION['email_'];
+                else echo $_SESSION['email__'];
+              }
+             ?>
+             </strong></p>
+            <p>Phone: <strong><?php
+             if(isset($_GET['id'])){
+              $id = $_GET['id'];
+              if($id == -1) echo $_SESSION['phone_num'];
+              else if($id == 0) echo $_SESSION['phone_num_'];
+              else echo $_SESSION['phone_num__'];
+            }
+             ?>
+             </strong></p>
+            <p>Acoount Type: <strong><?php
+             if(isset($_GET['id'])){
+              $id = $_GET['id'];
+              if($id == -1) echo $_SESSION['account_type'];
+              else if($id == 0) echo $_SESSION['account_type_'];
+              else echo $_SESSION['account_type__'];
+            }
+             ?>
+             </strong></p>
+             <?php 
+             if((!empty($_SESSION['owner_id']) && ($_GET['id'] == -1 || $_SESSION['owner_id'] == $_SESSION['owner_id_'])) || (!empty($_SESSION['resident_id']) && $_GET['id'] == -1))
+             {
+             ?>
             <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editProfileModal">Edit Information</button>
+            <?php 
+             }
+            ?>
+            <?php
+            if((!empty($_SESSION['owner_id']) && $_GET['id'] != -1 && !($_SESSION['owner_id'] == $_SESSION['owner_id_'])) || (!empty($_SESSION['resident_id']) && $_GET['id'] != -1))
+            {
+            ?>
+            <a href="message.php?ed=<?php echo $_GET['id']; ?>"><button  class="btn btn-primary btn-edit">Message</button></a>
+            <?php
+            }
+            ?>
           </div>
         </div>
       </div>
@@ -97,20 +157,68 @@
       </div>
     </div>
   </div>
+
+  <!-- edit report modal -->
+  <div class="modal fade" id="editReportModal" tabindex="-1" aria-labelledby="editReportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="custom-form-group form-group">
+                <label for="inputShortDescription">Report</label>
+                <textarea class="form-control" name="short_des" id="inputReportDescription" placeholder="Report" rows="5" required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <!-- appartment added by self -->
+  <div class="container my-5 d-grid gap-5">
   <?php
   include "dbconfig.php";
-  if($_SESSION['account_type']== "Owner")
+  if($_GET['id'] == 0 || $_GET['id']== -1){
+  if(empty($_SESSION['account_type_'])  || empty($_SESSION['account_type']) || ($_SESSION['account_type_'] == "Owner" && $_GET['id'] == 0) || ($_SESSION['account_type'] == "Owner"))
   {
-  $owner_id = $_SESSION['owner_id'];
+    if(!$_GET['id'])
+      $owner_id = $_SESSION['owner_id_'];
+    else
+      $owner_id = $_SESSION['owner_id'];
   $sql = "SELECT * FROM appartment 
         INNER JOIN location ON appartment.appart_id = location.appart_id 
         INNER JOIN image ON appartment.appart_id = image.appart_id 
         WHERE appartment.owner_id = '$owner_id'";
 
   $result = $conn->query($sql);
-
   ?>
+  <?php
+  if(!empty($_SESSION['owner_id']) && ($_GET['id'] || $_SESSION['owner_id'] == $_SESSION['owner_id_']))
+  {
+  ?>
+  <h3 class="mb-3">Appartment Added by Yourself</h3>
+  <?php
+  }
+  ?>
+  <?php
+  if(empty($_SESSION['owner_id'])  || (!$_GET['id'] && !($_SESSION['owner_id'] == $_SESSION['owner_id_'])))
+  {
+  ?>
+  <h3 class="mb-3">More From <?php echo $_SESSION['username_'] ?></h3>
+  <?php
+  }
+  ?>
+
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
@@ -149,10 +257,13 @@
         </div>
         <?php
   }
+  }
+  $_SESSION['owner_id_'] = "";
   ?>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </div>
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha512-oBqDVmMz4fnFO9gybHf4Kz6FblczI6aS3YrTXtVxy6plkEZk9h/8S7uDuScB/wK6e4RjjdLtVrB3LLMcLn5emw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-kenU1KFdBIe4zVF0s0G1M7b4yHCuP4E4SZO6zEMf3Tk3lw59p5X3/hu4h+2JVRcStj5a7r8gJr73zpvU8v+K8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

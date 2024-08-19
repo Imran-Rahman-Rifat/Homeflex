@@ -32,7 +32,7 @@
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="ManageRental.php">Manage Rentals</a>
+                    <a class="nav-link text-white" href="ManageRental.php?id=1">Manage Rentals</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="contact.php">Contact</a>
@@ -49,8 +49,10 @@
                             Account
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                            <li><a class="dropdown-item" href="profile.php?id=-1">Profile</a></li>
                             <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                            <li><a class="dropdown-item" href="notification.php">Notification</a></li>
+                            <li><a class="dropdown-item" href="displayMessageIDs.php">Messages</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                         </ul>
@@ -62,6 +64,8 @@
         </div>
     </div>
 </nav>
+
+
 <!-- Javascript Code -->
 <script src="js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">

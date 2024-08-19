@@ -14,11 +14,13 @@
 
 .banner-image{
     background-image:url('img/home.jpg');
+	background-position: center;
     background-size: cover;
 }
 
 .banner-image-2{
 	background-image: url('img/ManageRental.jpg');
+	background-position: center;
     background-size: cover;
 }
 /*** Property List ***/
@@ -62,7 +64,7 @@ body{
 	padding:0;
 	box-sizing: border-box;
 }
-.container{
+.container1{
 	max-width: 1170px;
 	margin:auto;
 }
@@ -145,6 +147,211 @@ ul{
     width: 100%;
 }
 }
-/* footer end */
+/*login*/
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.bg {
+    background-image: url('img/home.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+.login-container {
+    width: 350px;
+    margin: auto;
+    padding: 15px;
+    background: light;    
+    border-radius: 2px solid rgba(255,255,255,.5);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 30px;
+}
 
+.form-check-label, .forgot a, .register-link a {
+    color: #007bff;
+}
+
+/*addApartment*/
+.custom-form-container {
+    max-width: 800px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.custom-form-group label {
+    font-weight: bold;
+}
+
+/*displayMessageIDs*/
+.chat-history-container {
+	max-width: 800px;
+	margin: 20px auto;
+}
+.alert a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #007bff;
+}
+.alert a:hover {
+	text-decoration: underline;
+}
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 10px;
+}
+.user-info {
+	display: flex;
+	align-items: center;
+}
+/*notification*/
+.notification-container {
+	max-width: 800px;
+	margin: 20px auto;
+}
+/*message*/
+.chat-container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+.message-box {
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+.message-sent {
+	background-color: #d1e7ff;
+	text-align: right;
+}
+.message-received {
+	background-color: #f1f1f1;
+}
+.message-time {
+	font-size: 0.8rem;
+	color: #666;
+}
+.chat-form {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.chat-form input[type="text"] {
+	flex: 1;
+	margin-right: 10px;
+}
+.username-section {
+	position: fixed;
+	top: 70px; /* Just below the navbar */
+	width: 100%;
+	background-color: #3FA2F6;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	z-index: 1020; /* Ensure it's below the navbar but above other content */
+}
+/*profile*/
+.card {
+	border: none;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+	margin-bottom: 20px;
+  }
+
+  .profile-pic {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+  }
+
+  .btn-edit {
+	margin-top: 10px;
+  }
+  /*settings*/
+  .custom-container {
+	max-width: 600px;
+	margin: 50px auto;
+  }
+
+  .custom-card {
+	border: none;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+
+  .custom-card-body {
+	padding: 2rem;
+  }
+
+  .custom-form-group {
+	margin-bottom: 1.5rem;
+  }
+
+  .custom-h2 {
+	color: #343a40;
+  }
+
+  .custom-label {
+	font-weight: bold;
+  }
+
+  .custom-btn-save {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+  }
+
+  .custom-btn-save:hover {
+	background-color: #0056b3;
+  }
+  /*apartmentDetails*/
+  .card-body {
+	padding: 1.5rem;
+  }
+
+  .carousel-inner img {
+	height: 500px;
+	object-fit: cover;
+  }
+
+  hr {
+	border-top: 1px solid #dee2e6;
+  }
+
+  .btn-booking {
+	background-color: #007bff;
+	color: #fff;
+	padding: 1rem 2rem;
+	font-size: 1.25rem;
+	border: none;
+	border-radius: 0;
+	width: 100%;
+	transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-booking:hover {
+	background-color: #0056b3;
+	transform: scale(1.05);
+  }
+
+  .fixed-bottom-btn {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	z-index: 1000;
+  }
+  .custom-added-by-link:hover {
+	background-color: #007bff;
+	color: #fff;
+	text-decoration: none;
+  }

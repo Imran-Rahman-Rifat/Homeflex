@@ -15,6 +15,7 @@
 <body>
     <?php
         include "navbar.php";
+        $_SESSION['apart_cnt'] = 0;
     ?>
      <!-- Image -->
      <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center ">
@@ -64,7 +65,7 @@
     include "allApartment.php";
     ?>   
     <div class="col-12 text-center">
-        <a class="btn btn-primary py-3 px-5" href="ManageRental.php">Browse More Property</a>
+        <a class="btn btn-primary py-3 px-5" href="ManageRental.php?id=1">Browse More Property</a>
     </div>      
         
     </div>

@@ -1,5 +1,6 @@
 <?php
     include "dbconfig.php";
+    include "navbar.php";
     if (isset($_GET['id'])) {
         $appart_id = $_GET['id'];
         $sql = "SELECT * FROM appartment 
@@ -10,9 +11,26 @@
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $owner_id = $row['owner_id'];
-        } else {
-            header('Location: view-student-list.php');
+            $_SESSION['owner_id_'] = $owner_id;
+            $sql1 = "SELECT * FROM owner WHERE owner_id = '$owner_id'";
+            $result1 = $conn->query($sql1);
+            $row1 = $result1->fetch_assoc();
+            $_SESSION['username_'] = $row1['username'];
+            $_SESSION['phone_num_'] = $row1['phone_num'];
+            $user_id = $row1['user_id'];
+            $_SESSION['user_id_'] = $user_id;
+            $sql2 = "SELECT * FROM users WHERE user_id = '$user_id'";
+            $result2 = $conn->query($sql2);
+            $row2 = $result2->fetch_assoc();
+            $_SESSION['email_'] = $row2['email'];
+            $_SESSION['account_type_'] = $row2['account_type'];
         }
+    }
+    if(isset($_POST['req_booking'])){
+      $from = $_SESSION['resident_id'];
+      $to = $_SESSION['owner_id_'];
+      $sql = "INSERT INTO booking(from_,to_,appart_id) VALUES ('$from' , '$to' , '$appart_id')";
+      $result = $conn->query($sql);
     }
 ?>
 <!DOCTYPE html>
@@ -21,68 +39,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomeFlex - Apartment Details</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f8f9fa;
-      padding-bottom: 80px; /* Space for the static button */
-    }
-
-    h1 {
-      color: #343a40;
-    }
-
-    .card {
-      border: none;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-
-    .card-body {
-      padding: 1.5rem;
-    }
-
-    .carousel-inner img {
-      height: 500px;
-      object-fit: cover;
-    }
-
-    hr {
-      border-top: 1px solid #dee2e6;
-    }
-
-    .btn-booking {
-      background-color: #007bff;
-      color: #fff;
-      padding: 1rem 2rem;
-      font-size: 1.25rem;
-      border: none;
-      border-radius: 0;
-      width: 100%;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .btn-booking:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
-
-    .fixed-bottom-btn {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      z-index: 1000;
-    }
-  </style>
+  <!-- css file link -->
+  <link rel="stylesheet" href="index.css">
+    <!-- Bootstrap link -->
+    <link rel="stylesheet"href="css/bootstrap.min.css"></link>
+    <scrip scr="js/bootstrap.bundle.min.js"></scrip>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <?php include "navbar.php" ?>
   <br><br><br>
   <div class="container my-4">
     <h1 class="text-center mb-4">Apartment Details</h1>
     <div class="row">
       <div class="col-md-8">
+      <p>Added By <a href="profile.php?id=0" class="custom-added-by-link"><?php echo $_SESSION['username_'] ?></a></p>
         <div id="apartmentCarousel" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
@@ -110,14 +81,33 @@
             <span class="sr-only">Next</span>
           </a>
           <?php
-          if($_SESSION['account_type'] == "Resident")
+          if(!empty($_SESSION['account_type']) && $_SESSION['account_type'] == "Resident")
           {
           ?>
-          <button class="btn btn-booking mt-3">Request Booking</button>
+          <?php
+          $resident_id = $_SESSION['resident_id'];
+          $sql = "SELECT * from booking where from_ = '$resident_id' AND appart_id = '$appart_id'";
+          $result = $conn -> query($sql);
+          if($result->num_rows <= 0)
+          {
+          ?>
+          <form action="" method="POST">
+          <button class="btn btn-booking mt-3" name="req_booking">Request Booking</button>
+          </form>
           <?php
           }
           ?>
-          <a href="#" style="color:black;">Added By Kazi Rifat</a>
+          <?php
+          if($result && $result->num_rows > 0)
+          {
+          ?>
+          <div class="alert alert-info text-center">Request Sent</div>
+          <?php
+          }
+          ?>
+          <?php
+          }
+          ?>
         </div>
       </div>
       <div class="col-md-4">
@@ -135,7 +125,7 @@
             <p>Whom to Rent: <strong><?php echo $row['whom_to_rent']?></strong></p>
             <p>Floor No: <strong><?php echo $row['floor_no']?></strong></p>
             <?php
-            if($owner_id == $_SESSION['owner_id'])
+            if(!empty($_SESSION['owner_id']) && $owner_id == $_SESSION['owner_id'])
             {
             ?>
             <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editProfileModal">Edit Apartment Information</button>
@@ -151,7 +141,7 @@
             <p>House No: <strong><?php echo $row['house_no']?></strong></p>
             <p>Address: <strong><?php echo $row['address']?></strong></p>
             <?php
-            if($owner_id == $_SESSION['owner_id'])
+            if(!empty($_SESSION['owner_id']) && $owner_id == $_SESSION['owner_id'])
             {
             ?>
             <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#editLocationModal">Edit Location Information</button>
@@ -275,7 +265,7 @@
       </div>
     </div>
   </div>
-
+  <?php //include "footer.html"; ?>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
