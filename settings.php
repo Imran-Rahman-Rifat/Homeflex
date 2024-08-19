@@ -1,3 +1,9 @@
+<?php
+  if(isset($_POST['save'])){
+    include "dbconfig.php";
+
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,15 +27,15 @@
       <div class="custom-card-body">
         <h2 class="custom-h2 text-center mb-4">Settings</h2>
         
-        <form action="save_settings.php" method="POST">
+        <form action="" method="POST">
           <div class="custom-form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="Username" disabled>
+            <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['username'] ?>" disabled>
           </div>
 
           <div class="custom-form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            <label for="email" name="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="<?php echo $_SESSION['email'] ?>" disabled>
           </div>
 
           <div class="custom-form-group">
@@ -42,7 +48,7 @@
             <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password" required>
           </div>
 
-          <button type="submit" class="btn btn-primary custom-btn-save btn-block">Save Changes</button>
+          <button name="save" type="submit" class="btn btn-primary custom-btn-save btn-block">Save Changes</button>
         </form>
       </div>
     </div>
