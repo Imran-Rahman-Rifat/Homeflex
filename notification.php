@@ -36,6 +36,14 @@
                 $result_apart = $conn->query($sql_apart);
                 $row_apart = $result_apart->fetch_assoc();
         ?>
+                <!--display booking status-->
+                <?php
+                if ($row['status'] == 'accepted') {
+                    echo '<span class="badge bg-success">Accepted</span>';
+                } elseif ($row['status'] == 'rejected') {
+                    echo '<span class="badge bg-danger">Rejected</span>';
+                } 
+                ?>
                 <div class="alert alert-info">
                     <a href="profile.php?id=<?php echo $row['from_']; ?>& x=1"><?php echo $row1['username']; ?></a> has sent you a booking request for the apartment
                     <a href="apartmentDetails.php?id=<?php echo $row_apart['appart_id']; ?>"><?php echo $row_apart['title']; ?></a> at <?php echo $row['send_at'];?>
@@ -59,6 +67,14 @@
                 $result_apart = $conn->query($sql_apart);
                 $row_apart = $result_apart->fetch_assoc();
         ?>
+                <!--display booking status-->
+                <?php
+                if ($row['status'] == 'accepted') {
+                    echo '<br><span class="badge bg-success">Accepted</span>';
+                } elseif ($row['status'] == 'rejected') {
+                    echo '<br><span class="badge bg-danger">Rejected</span>';
+                } 
+                ?>
                 <div class="alert alert-info">
                     You sent a boooking request to <a href="profile.php?id=<?php echo $row['to_']; ?>"><?php echo $row1['username']; ?></a> for the apartment
                     <a href="apartmentDetails.php?id=<?php echo $row_apart['appart_id']; ?>& x=0"><?php echo $row_apart['title']; ?></a> at <?php echo $row['send_at'];?>
@@ -68,8 +84,12 @@
         }
         ?>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS and Popper.js --> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha512-oBqDVmMz4fnFO9gybHf4Kz6FblczI6aS3YrTXtVxy6plkEZk9h/8S7uDuScB/wK6e4RjjdLtVrB3LLMcLn5emw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-kenU1KFdBIe4zVF0s0G1M7b4yHCuP4E4SZO6zEMf3Tk3lw59p5X3/hu4h+2JVRcStj5a7r8gJr73zpvU8v+K8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

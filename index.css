@@ -355,3 +355,33 @@ body, html {
 	color: #fff;
 	text-decoration: none;
   }
+
+
+  .img-container {
+	width: 100%;
+	height: 200px; /* Adjust the height based on your needs */
+	overflow: hidden;
+	position: relative;
+}
+
+.custom-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center; /* Centers the image within the container */
+	border-radius: 10px;
+	display: block;
+	max-height: 100%;
+}
+
+h6 {
+	margin-top: 10px;
+}
+
+.cat-item {
+	transition: all 0.3s ease-in-out;
+}
+
+.cat-item:hover {
+	transform: translateY(-5px);
+}

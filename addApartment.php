@@ -18,7 +18,8 @@ if (isset($_POST['upload'])) {
     $date = $_POST['date'];
     $floor_no = $_POST['floor_no'];
     $temp = $_SESSION['owner_id'];
-    $sql ="insert into appartment(owner_id, price, sqft, available_date, short_des, lift_facility, bedroom_num, bathroom_num, total_room, whom_to_rent, floor_no, title) VALUES ('$temp', '$price', '$sqft', '$date', '$short_des', '$lift', '$bedroom_num', '$bathroom_num', '$total_room', '$whom_to_rent', '$floor_no', '$title')";
+    $sql ="insert into appartment(owner_id, price, sqft, available_date, short_des, lift_facility, bedroom_num, bathroom_num, total_room, whom_to_rent, floor_no, title)
+           VALUES ('$temp', '$price', '$sqft', '$date', '$short_des', '$lift', '$bedroom_num', '$bathroom_num', '$total_room', '$whom_to_rent', '$floor_no', '$title')";
     $result = $conn->query($sql);
 
     if ($result) {
@@ -32,7 +33,8 @@ if (isset($_POST['upload'])) {
         $result = $conn->query($query);
         $row = $result->fetch_assoc(); 
         $appart_id = $row['appart_id'];
-        $sql ="insert into location(appart_id, division, district, thana, ward_no, house_no, address) VALUES ('$appart_id', '$division', '$district', '$thana', '$ward_no', '$house_no', '$address')";
+        $sql ="insert into location(appart_id, division, district, thana, ward_no, house_no, address) 
+               VALUES ('$appart_id', '$division', '$district', '$thana', '$ward_no', '$house_no', '$address')";
         $result = $conn->query($sql);
         
         $filename_title = $_FILES["uploadtitle"]["name"];
@@ -61,7 +63,8 @@ if (isset($_POST['upload'])) {
         move_uploaded_file($tempname_kitchen, $folder_kitchen) &&
         move_uploaded_file($tempname_additional, $folder_additional)) {
 
-            $sql = "INSERT INTO image (appart_id, title_img, bedroom_img, bathroom_img, kitchen_img, extra_img) VALUES ('$appart_id', '$filename_title', '$filename_bed', '$filename_bath', '$filename_kitchen', '$filename_additional')";
+            $sql = "INSERT INTO image (appart_id, title_img, bedroom_img, bathroom_img, kitchen_img, extra_img)
+                    VALUES ('$appart_id', '$filename_title', '$filename_bed', '$filename_bath', '$filename_kitchen', '$filename_additional')";
             $result = $conn->query($sql);
         }
 

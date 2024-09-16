@@ -7,6 +7,7 @@
                 $cnt=0;
                 while($row = mysqli_fetch_assoc($result)){
                     if($cnt==6 && $_SESSION['apart_cnt'] == 0) break;
+                    if($row['is_booked']==0){
                     $cnt++;
                 ?>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -29,6 +30,7 @@
                         </div>
                     </div>
                     <?php
+                    }
                     }
                     $conn -> close();
                     $_SESSION['apart_cnt'] = 0;

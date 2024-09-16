@@ -1,6 +1,40 @@
 <?php
-    include "dbconfig.php";
-    include "navbar.php";
+include "dbconfig.php";
+include "navbar.php";
+if(isset($_POST['apartment'])){
+  $appart_id = $_GET['id'];
+  $title = $_POST['title'];
+  $price = $_POST['price'];
+  $short_des = $_POST['short_des'];
+  $whom_to_rent = $_POST['whom_to_rent'];
+  $total_room = $_POST['total_room'];
+  $bedroom_num = $_POST['bedroom_num'];
+  $bathroom_num = $_POST['bathroom_num'];
+  $sqft = $_POST['sqft'];
+  $lift = $_POST['lift'];
+  $date = $_POST['date'];
+  $floor_no = $_POST['floor_no'];
+  $sql = "UPDATE appartment SET title = '$title', price = '$price', sqft = '$sqft', available_date = '$date', short_des = '$short_des',
+          lift_facility = '$lift', bedroom_num = '$bedroom_num', bathroom_num = '$bathroom_num' , total_room = '$total_room',
+          whom_to_rent = '$whom_to_rent', floor_no = '$floor_no' WHERE appart_id = '$appart_id'";
+  $result = $conn->query($sql);
+}
+if(isset($_POST['location'])){
+  $appart_id = $_GET['id'];
+  $division = $_POST['division'];
+  $district = $_POST['district'];
+  $thana = $_POST['thana'];
+  $ward_no = $_POST['ward_no'];
+  $house_no = $_POST['house_no'];
+  $address = $_POST['address'];
+  $sql ="insert into location(appart_id, division, district, thana, ward_no, house_no, address) 
+  VALUES ('$appart_id', '$division', '$district', '$thana', '$ward_no', '$house_no', '$address')";
+  $sql = "UPDATE location SET division = '$division', district = '$district', thana = '$thana', ward_no = '$ward_no',
+          house_no = '$house_no', address = '$address' WHERE appart_id = '$appart_id'";
+  $result = $conn->query($sql);
+}
+?>
+<?php
     if (isset($_GET['id'])) {
         $appart_id = $_GET['id'];
         $sql = "SELECT * FROM appartment 
@@ -24,6 +58,7 @@
             $row2 = $result2->fetch_assoc();
             $_SESSION['email_'] = $row2['email'];
             $_SESSION['account_type_'] = $row2['account_type'];
+            $_SESSION['profile_pic_'] = $row2['profile_pic'];
         }
     }
     if(isset($_POST['req_booking'])){
@@ -32,6 +67,33 @@
       $sql = "INSERT INTO booking(from_,to_,appart_id) VALUES ('$from' , '$to' , '$appart_id')";
       $result = $conn->query($sql);
     }
+    if(isset($_POST['unbook'])){
+      $appart_id = $_GET['id'];
+      $sql = "UPDATE appartment SET is_booked = false where appart_id = '$appart_id'";
+      $ans = $conn->query($sql);
+      $sql = "DELETE FROM booking where appart_id = '$appart_id'";
+      $ans = $conn->query($sql);
+    }
+    
+?>
+<?php
+if(isset($_POST['ok'])){
+  $booking_resident_id = $_POST['booking_resident_id'];
+  $appart_id = $_POST['appart_id'];
+  $updateStatusQuery = "UPDATE booking SET status = 'accepted', status_updated_at = NOW() WHERE from_='$booking_resident_id' AND appart_id='$appart_id'";
+  $result = $conn->query($updateStatusQuery);
+  $sql = "UPDATE appartment SET is_booked = true WHERE appart_id='$appart_id'";
+  $result = $conn ->query($sql);
+  $sql = "DELETE FROM booking WHERE from_!='$booking_resident_id' AND appart_id='$appart_id'";
+  $result = $conn->query($sql);
+}
+if(isset($_POST['not_ok'])){
+  $booking_resident_id = $_POST['booking_resident_id'];
+  $appart_id = $_POST['appart_id'];
+  $updateStatusQuery = "UPDATE booking SET status = 'rejected', status_updated_at = NOW() WHERE from_='$booking_resident_id' AND appart_id='$appart_id'";
+  $result = $conn->query($updateStatusQuery);
+  
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,6 +150,7 @@
           $resident_id = $_SESSION['resident_id'];
           $sql = "SELECT * from booking where from_ = '$resident_id' AND appart_id = '$appart_id'";
           $result = $conn -> query($sql);
+          $row_ = mysqli_fetch_assoc($result);
           if($result->num_rows <= 0)
           {
           ?>
@@ -100,12 +163,63 @@
           <?php
           if($result && $result->num_rows > 0)
           {
+            if($row_['status']=='accepted'){
+          ?>
+          <div class="alert alert-success text-center">Your request accepted</div>
+          <?php
+            }
+            else if($row_['status']=='rejected'){
+          ?>
+          <div class="alert alert-danger text-center">Your request rejected</div>
+          <?php
+            }
+          else{
           ?>
           <div class="alert alert-info text-center">Request Sent</div>
           <?php
           }
+        }
           ?>
           <?php
+          }
+          if(isset($row['is_booked']) && $row['is_booked'] && !empty($_SESSION['owner_id']) && $owner_id == $_SESSION['owner_id'])
+          {
+          ?>
+          <form action="" method="POST">
+          <button class="btn btn-booking mt-3" name="unbook">Unbook</button>
+          </form>
+          <?php
+          }
+          ?>
+          <?php
+          if(!empty($_SESSION['owner_id']) && $owner_id == $_SESSION['owner_id'])
+          {
+            $owner_id = $_SESSION['owner_id'];
+            $sql = "SELECT * FROM booking WHERE to_ = '$owner_id' AND appart_id = '$appart_id' ORDER BY booking_id DESC";
+            $result = $conn->query($sql);
+            while ($roww = mysqli_fetch_assoc($result))
+            {
+              if($roww['status']=='pending'){
+              $booking_resident_id = $roww['from_'];
+              $appart_id = $row['appart_id'];
+              $sql1 = "SELECT * FROM resident INNER JOIN users ON resident.user_id = users.user_id WHERE resident.resident_id ='$booking_resident_id'";
+              $result1 = $conn->query($sql1);
+              $row1 = $result1->fetch_assoc();
+          ?>
+          <div class="alert alert-info">
+            <form method="POST" action="">
+            <a href="profile.php?id=<?php echo $roww['from_']; ?>& x=1"><?php echo $row1['username']; ?></a> has sent you a booking request.
+            Do you want to rent? &nbsp
+            <input type="hidden" name="booking_resident_id" value="<?php echo $booking_resident_id; ?>">
+            <input type="hidden" name="appart_id" value="<?php echo $appart_id; ?>">
+
+            <button type="submit" name="ok" class="fa-solid fa-check" style="color: #3eb300;"></button>&nbsp
+            <button type="submit" name="not_ok" class="fa-solid fa-xmark" style="color: #e66565;"></button>
+            </form>
+          </div>
+          <?php
+            }
+          }
           }
           ?>
         </div>
@@ -154,7 +268,7 @@
     </div>
   </div>
 
-  <!-- Edit Profile Modal -->
+  <!-- Edit apartment Modal -->
   <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -165,57 +279,66 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form method="POST" action="">
             <div class="form-group">
               <label for="title">Title</label>
-              <input type="text" class="form-control" id="title" value="<?php echo $row['title']?>">
+              <input type="text" name="title" class="form-control" id="title" value="<?php echo $row['title']?>">
             </div>
             <div class="form-group">
               <label for="rentalPrice">Monthly Rental Price</label>
-              <input type="text" class="form-control" id="rentalPrice" value="<?php echo $row['price']?>">
+              <input type="text" name="price" class="form-control" id="rentalPrice" value="<?php echo $row['price']?>">
             </div>
             <div class="form-group">
               <label for="availableDate">Available Date</label>
-              <input type="date" class="form-control" id="availableDate" value="<?php echo $row['available_date']?>">
+              <input type="date" name="date" class="form-control" id="availableDate" value="<?php echo $row['available_date']?>">
             </div>
             <div class="form-group">
               <label for="squareFeet">Square Feet</label>
-              <input type="number" class="form-control" id="squareFeet" value="<?php echo $row['sqft']?>">
+              <input type="number" name="sqft" class="form-control" id="squareFeet" value="<?php echo $row['sqft']?>">
             </div>
             <div class="form-group">
               <label for="description">Description</label>
-              <textarea class="form-control" id="description" rows="3"><?php echo $row['short_des']?></textarea>
+              <textarea class="form-control" name="short_des" id="description" rows="3"><?php echo $row['short_des']?></textarea>
             </div>
             <div class="form-group">
               <label for="totalRooms">Total Rooms</label>
-              <input type="number" class="form-control" id="totalRooms" value="<?php echo $row['total_room']?>">
+              <input type="number" name="total_room" class="form-control" id="totalRooms" value="<?php echo $row['total_room']?>">
             </div>
             <div class="form-group">
               <label for="bedrooms">Bedrooms</label>
-              <input type="number" class="form-control" id="bedrooms" value="<?php echo $row['bedroom_num']?>">
+              <input type="number" name="bedroom_num" class="form-control" id="bedrooms" value="<?php echo $row['bedroom_num']?>">
             </div>
             <div class="form-group">
               <label for="bathrooms">Bathrooms</label>
-              <input type="number" class="form-control" id="bathrooms" value="<?php echo $row['bathroom_num']?>">
+              <input type="number" name="bathroom_num" class="form-control" id="bathrooms" value="<?php echo $row['bathroom_num']?>">
             </div>
             <div class="form-group">
-              <label for="liftFacility">Lift Facility</label>
-              <input type="text" class="form-control" id="liftFacility" value="<?php echo $row['lift_facility']?>">
+                <label for="inputLiftFacilities">Lift Facilities</label>
+                <select class="form-control" id="inputLiftFacilities" name="lift">
+                    <option value="<?php echo $row['lift_facility']?>"><?php echo $row['lift_facility']?></option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
             </div>
             <div class="form-group">
-              <label for="whomToRent">Whom to Rent</label>
-              <input type="text" class="form-control" id="whomToRent" value="<?php echo $row['whom_to_rent']?>">
+                <label for="inputWhomToRent">Whom to Rent</label>
+                <select class="form-control" id="inputWhomToRent" name="whom_to_rent">
+                    <option value="<?php echo $row['whom_to_rent']?>"><?php echo $row['whom_to_rent']?></option>
+                    <option value="Family">Family</option>
+                    <option value="Bachelor">Bachelor</option>
+                    <option value="Any">Any</option>
+                </select>
             </div>
             <div class="form-group">
               <label for="floorNo">Floor No</label>
-              <input type="number" class="form-control" id="floorNo" value="<?php echo $row['floor_no']?>">
-            </div>
-          </form>
+              <input type="number" name="floor_no" class="form-control" id="floorNo" value="<?php echo $row['floor_no']?>">
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" name="apartment" class="btn btn-primary">Save changes</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -231,37 +354,51 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form method="POST" action="">
             <div class="form-group">
               <label for="division">Division</label>
-              <input type="text" class="form-control" id="division" value="<?php echo $row['division']?>">
+              <input type="text" name="division" class="form-control" id="division" value="<?php echo $row['division']?>">
+            </div>
+            <div class="custom-form-group form-group">
+                <label for="inputDivision">Division</label>
+                <select class="form-control" id="inputDivision" name="division" required>
+                    <option value="<?php echo $row['division']?>"><?php echo $row['division']?></option>
+                    <option>Dhaka</option>
+                    <option>Chattogram</option>
+                    <option>Barisal</option>
+                    <option>Khulna</option>
+                    <option>Rajshahi</option>
+                    <option>Rangpur</option>
+                    <option>Mymensingh</option>
+                    <option>Sylhet</option>
+                </select>
             </div>
             <div class="form-group">
               <label for="district">District</label>
-              <input type="text" class="form-control" id="district" value="<?php echo $row['district']?>">
+              <input type="text" name="district" class="form-control" id="district" value="<?php echo $row['district']?>">
             </div>
             <div class="form-group">
               <label for="thana">Thana</label>
-              <input type="text" class="form-control" id="thana" value="<?php echo $row['thana']?>">
+              <input type="text" name="thana" class="form-control" id="thana" value="<?php echo $row['thana']?>">
             </div>
             <div class="form-group">
               <label for="wardNo">Ward No</label>
-              <input type="number" class="form-control" id="wardNo" value="<?php echo $row['ward_no']?>">
+              <input type="number" name="ward_no" class="form-control" id="wardNo" value="<?php echo $row['ward_no']?>">
             </div>
             <div class="form-group">
               <label for="houseNo">House No</label>
-              <input type="text" class="form-control" id="houseNo" value="<?php echo $row['house_no']?>">
+              <input type="text" name="house_no" class="form-control" id="houseNo" value="<?php echo $row['house_no']?>">
             </div>
             <div class="form-group">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" value="<?php echo $row['address']?>">
+              <input type="text" name="address" class="form-control" id="address" value="<?php echo $row['address']?>">
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" name="location" class="btn btn-primary">Save changes</button>
         </div>
+        </form>
       </div>
     </div>
   </div>

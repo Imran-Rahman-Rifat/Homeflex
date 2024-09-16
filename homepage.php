@@ -22,9 +22,10 @@
         <div class="content text-center">
             <h1 class="text-white pb-5">FIND YOUR PERFECT PLACE</h1>
             <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="City,ZIP" aria-label="Search" aria-describedby="search-addon" />
-                <!--<button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>-->
-                <button type="button" class="btn btn-primary">search</button>
+            <form method="GET" action="ManageRental.php" class="d-flex w-100 align-items-center">
+                <input type="search" name="search" class="form-control rounded" placeholder="City, ZIP" aria-label="Search" aria-describedby="search-addon" style="flex: 1;" />
+                <button type="submit" class="btn btn-primary ms-2">Search</button>
+            </form>
             </div>
         </div>       
      </div>
@@ -82,12 +83,38 @@
             </div>
         </div>
     </div>
-
+    
     <div class="row mydiv2">
-        <header>
-            <h1 class="text-center text-white pt-5">For Anything You Need</h1>
-            <h5 class="text-center text-white">Our stellar service</h5>
-        </header>
+    <header>
+        <h1 class="text-center text-white pt-5">For Anything You Need</h1>
+        <!--<h5 class="text-center text-white">Our stellar service</h5>-->
+
+        <div class="row g-4 d-flex justify-content-center">
+            <!-- For Family -->
+            <div class="col-lg-3 col-sm-6 wow fadeInUp d-flex justify-content-center" data-wow-delay="0.1s">
+                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                    <div class="rounded p-4 img-container">
+                        <div class="icon mb-3 d-flex justify-content-center">
+                            <img class="img-fluid custom-img" src="img/family.jpg" alt="Family Icon">
+                        </div>
+                        <h6>For Family</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- For Bachelor -->
+            <div class="col-lg-3 col-sm-6 wow fadeInUp d-flex justify-content-center" data-wow-delay="0.1s">
+                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                    <div class="rounded p-4 img-container">
+                        <div class="icon mb-3 d-flex justify-content-center">
+                            <img class="img-fluid custom-img" src="img/bachelor.jpg" alt="Bachelor Icon">
+                        </div>
+                        <h6>For Bachelor</h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
     </div>
     <?php
     include "footer.html"

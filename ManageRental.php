@@ -12,6 +12,10 @@
 </head>
 <body>
     <?php 
+    //$val = isset($_GET['location']) ? $_GET['location'] : '';
+    if(isset($_GET['search'])) $val = $_GET['search'];
+    else if( isset($_GET['location'])) $val = $_GET['location'];
+    else $val = '';
     include "navbar.php";
     $_SESSION['apart_cnt'] = 1;
     ?>
@@ -22,11 +26,14 @@
         </div>       
     </div>
     <br><br>
-
     <!-- Filter and Sort Options -->
     <div class="container my-4">
         <form method="GET" action="ManageRental.php">
             <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Location" value="<?php echo $val?>">
+                </div>
                 <div class="col-md-3">
                     <label for="priceRange" class="form-label">Price Range</label>
                     <input type="number" class="form-control" id="priceRangeMin" name="price_min" placeholder="Min" value="<?php echo isset($_GET['price_min']) ? $_GET['price_min'] : ''; ?>">
@@ -47,12 +54,12 @@
                     <label for="totalRoom" class="form-label">Total Room</label>
                     <input type="number" class="form-control" id="totalRoom" name="total_room" placeholder="Total Room" value="<?php echo isset($_GET['total_room']) ? $_GET['total_room'] : ''; ?>">
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-3">
                     <label for="sqft" class="form-label">Square Feet</label>
                     <input type="number" class="form-control" id="sqft" name="sqft" placeholder="Square Feet" value="<?php echo isset($_GET['sqft']) ? $_GET['sqft'] : ''; ?>">
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 align-self-end">
                     <button type="submit" name="filter" class="btn btn-primary mt-2">Apply Filters</button>
                 </div>
