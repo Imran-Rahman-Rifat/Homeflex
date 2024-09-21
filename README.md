@@ -41,8 +41,8 @@ Click the image above or [watch the demo here](https://www.youtube.com/watch?v=k
 ![Booking Requests](screenshot/details.png)
 
 ### Messaging System
-![Messaging System](screenshots/message.png)
+![Messaging System](screenshot/message.png)
 
 ### Notification System
-![Homepage](screenshot/notification.png)
+![Homepage](screenshot/notifications.png)
 
