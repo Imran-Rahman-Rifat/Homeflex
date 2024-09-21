@@ -1,9 +1,7 @@
 <?php
 include "dbconfig.php";
-
-// Initialize filter variables
 $whereClause = "";
-$sort = "ORDER BY appartment.appart_id DESC"; // Default sorting
+$sort = "ORDER BY appartment.appart_id DESC";
 if(isset($_GET['search']) && !empty($_GET['search'])){
     $location = $_GET['search'];
     $whereClause .= " AND (location.division LIKE '%$location%' 
@@ -81,7 +79,6 @@ $sql = "SELECT * FROM appartment
         INNER JOIN location ON appartment.appart_id = location.appart_id 
         INNER JOIN image ON appartment.appart_id = image.appart_id 
         WHERE 1 $whereClause $sort";
-//echo $sql;
 
 $result = $conn->query($sql);
 

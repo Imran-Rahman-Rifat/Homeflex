@@ -40,9 +40,11 @@
                 <?php
                 if ($row['status'] == 'accepted') {
                     echo '<span class="badge bg-success">Accepted</span>';
-                } elseif ($row['status'] == 'rejected') {
+                } else if ($row['status'] == 'rejected') {
                     echo '<span class="badge bg-danger">Rejected</span>';
-                } 
+                } else{
+                    echo '<span class="badge bg-warning">Pending</span>';
+                }
                 ?>
                 <div class="alert alert-info">
                     <a href="profile.php?id=<?php echo $row['from_']; ?>& x=1"><?php echo $row1['username']; ?></a> has sent you a booking request for the apartment
@@ -73,7 +75,10 @@
                     echo '<br><span class="badge bg-success">Accepted</span>';
                 } elseif ($row['status'] == 'rejected') {
                     echo '<br><span class="badge bg-danger">Rejected</span>';
-                } 
+                }
+                else{
+                    echo '<span class="badge bg-warning">Pending</span>';
+                }
                 ?>
                 <div class="alert alert-info">
                     You sent a boooking request to <a href="profile.php?id=<?php echo $row['to_']; ?>"><?php echo $row1['username']; ?></a> for the apartment

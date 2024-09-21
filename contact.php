@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-md-7">
                 <h2>Have a Question? We're Here to Help</h2>
-                <p>Email us at <a href="mailto:info@my-domain.com">info@my-domain.com</a> or send us a message via the contact form below and we'll get back to you</p>
+                <p>Email us at <a href="mailto:info@my-domain.com">homeflex@gmail.com</a> or send us a message via the contact form below and we'll get back to you</p>
                 <form action="submit_contact.php" method="POST">
                     <div class="mb-3">
                         <input type="text" name="name" class="form-control" placeholder="Name" required>
@@ -39,10 +39,10 @@
                 </form>
             </div>
             <div style="alignment:center" class="col-md-5">
-                <h2>Our Stores</h2>
+                <h2>Our Offices</h2>
                 <address>
-                    500 Terry Francine Street<br>
-                    San Francisco, CA 94158<br>
+                    122/1, Love Road, <br>
+                    Tejgaon Industry Area,<br>
                     Tel: 123-456-7890
                 </address>
                 <address>

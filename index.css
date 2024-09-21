@@ -374,14 +374,3 @@ body, html {
 	max-height: 100%;
 }
 
-h6 {
-	margin-top: 10px;
-}
-
-.cat-item {
-	transition: all 0.3s ease-in-out;
-}
-
-.cat-item:hover {
-	transform: translateY(-5px);
-}

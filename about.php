@@ -42,7 +42,6 @@
         </div>
     </div>
     <div>
-    <input type="image" src="img_submit.gif" alt="Submit" width="48" height="48">
 
     </div>
     
