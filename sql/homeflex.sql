@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2024 at 12:52 AM
+-- Generation Time: Sep 27, 2024 at 06:19 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -57,9 +57,10 @@ INSERT INTO `appartment` (`appart_id`, `owner_id`, `title`, `price`, `sqft`, `av
 (6, 4, 'Urban Area ', 18000, 1000, '2024-04-01', 'E', 'No', 2, 2, 3, 'Bachelor', 2, 0),
 (7, 4, 'Rural Area ', 16000, 2000, '2024-05-01', 'F', 'Yes', 4, 3, 5, 'Any', 5, 0),
 (8, 4, 'Business area', 30000, 2200, '2024-10-01', 'V', 'Yes', 3, 3, 5, 'Any', 9, 0),
-(9, 4, 'Educational Area', 25000, 2000, '2024-08-01', 'R', 'Yes', 3, 3, 5, 'Family', 8, 1),
+(9, 4, 'Educational Area', 25000, 2000, '2024-08-01', 'R', 'Yes', 3, 3, 5, 'Family', 8, 0),
 (10, 5, 'Urban Area', 30000, 2000, '2024-11-01', 'H', 'Yes', 4, 3, 5, 'Family', 8, 0),
-(11, 5, 'Urban Area ', 27000, 1200, '2024-12-01', 'T', 'Yes', 3, 3, 5, 'Any', 5, 0);
+(11, 5, 'Urban Area ', 27000, 1200, '2024-12-01', 'T', 'Yes', 3, 3, 5, 'Any', 5, 0),
+(12, 3, 'Modern Apartment', 19000, 1100, '2024-12-01', 'A apartment with modern facilities', 'Yes', 3, 2, 5, 'Family', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `booking` (
 INSERT INTO `booking` (`booking_id`, `from_`, `to_`, `appart_id`, `send_at`, `status`, `status_updated_at`) VALUES
 (2, 5, 1, 1, '2024-09-17 19:41:15', 'rejected', '2024-09-17 19:51:27'),
 (3, 5, 3, 4, '2024-09-17 19:41:28', 'pending', '2024-09-17 19:41:28'),
-(4, 5, 4, 9, '2024-09-17 19:48:27', 'accepted', '2024-09-17 19:50:03');
+(9, 4, 3, 12, '2024-09-22 03:38:21', 'accepted', '2024-09-22 03:39:32');
 
 -- --------------------------------------------------------
 
@@ -111,7 +112,10 @@ INSERT INTO `conversation` (`conversation_id`, `from_`, `to_`, `message`, `send_
 (4, 2, 4, 'I am fine', '2024-09-16 17:40:50'),
 (5, 10, 4, 'Hello there', '2024-09-17 19:53:20'),
 (6, 4, 10, 'Hi', '2024-09-17 19:54:03'),
-(7, 10, 4, 'l like you apartment named educational area', '2024-09-17 19:56:15');
+(14, 9, 4, 'hi', '2024-09-18 04:54:42'),
+(15, 12, 3, 'Hello there', '2024-09-18 08:57:34'),
+(16, 3, 12, 'hi', '2024-09-18 08:57:45'),
+(17, 12, 3, 'iji', '2024-09-18 08:57:59');
 
 -- --------------------------------------------------------
 
@@ -135,7 +139,7 @@ CREATE TABLE `image` (
 INSERT INTO `image` (`appart_id`, `title_img`, `bedroom_img`, `bathroom_img`, `kitchen_img`, `extra_img`) VALUES
 (1, 'property-3.jpg', 'family.jpg', 'ManageRental.jpg', 'bachelor.jpg', '_b391ae04-0a2d-4554-9513-86f5fc079187.jpeg'),
 (2, '16.jpg', '1.jpeg', '1.jpeg', '1.jpeg', '1.png'),
-(3, 'property-5.jpg', '2.jpeg', '2.jpeg', '2.jpeg', '2.jpeg'),
+(3, 'n.jpg', '2.jpeg', '2.jpeg', '2.jpeg', '2.jpeg'),
 (4, '3.jpg', '3.jpeg', '5.jpeg', '3.jpeg', '4.jpg'),
 (5, 'property-5.jpg', '12.jpeg', '4.jpeg', '4.jpg', '2.jpeg'),
 (6, '6.jpg', '5.jpg', '5.jpeg', '6.jpeg', '8.jpg'),
@@ -143,7 +147,8 @@ INSERT INTO `image` (`appart_id`, `title_img`, `bedroom_img`, `bathroom_img`, `k
 (8, '10.jpg', '11.jpeg', '10.jpg', '6.jpeg', '6.jpg'),
 (9, 'property-1.jpg', '4.jpg', '7.jpeg', '6.jpg', '11.jpeg'),
 (10, 'property-6.jpg', '11.jpeg', '1.jpeg', '8.jpeg', '6.jpg'),
-(11, 'property-1.jpg', '9.jpeg', '5.jpeg', '7.jpeg', '10.jpeg');
+(11, 'property-1.jpg', '9.jpeg', '5.jpeg', '7.jpeg', '10.jpeg'),
+(12, 'property-2.jpg', '10.jpg', '7.jpeg', '3.jpeg', '6.jpeg');
 
 -- --------------------------------------------------------
 
@@ -176,7 +181,8 @@ INSERT INTO `location` (`appart_id`, `division`, `district`, `thana`, `ward_no`,
 (8, 'Dhaka', 'Ghulshan', 'Ghulshan', 50, '4/A', 'Ghukshan,Dhaka'),
 (9, 'Dhaka', 'Dhaka', 'Dhanmondi', 38, '1/A', 'Dhanmondi,Dhaka'),
 (10, 'Dhaka', 'Ghulshan', 'Ghulshan', 30, '5/A', 'Ghukshan,Dhaka'),
-(11, 'Dhaka', 'Dhaka', 'Banani', 47, '4/B', 'Banani,Dhaka');
+(11, 'Dhaka', 'Dhaka', 'Banani', 47, '4/B', 'Banani,Dhaka'),
+(12, 'Dhaka', 'Dhaka', 'Jatrabari', 60, '100/A', 'Jatrabari,Dhaka');
 
 -- --------------------------------------------------------
 
@@ -198,7 +204,7 @@ CREATE TABLE `owner` (
 INSERT INTO `owner` (`owner_id`, `user_id`, `username`, `phone_num`) VALUES
 (1, 1, 'Rifat', 123456),
 (2, 2, 'Imran', 123456),
-(3, 3, 'Shaon', 1234567),
+(3, 3, 'Md Shaon', 123456789),
 (4, 4, 'Raduan', 123456),
 (5, 5, 'Nur', 134567);
 
@@ -220,7 +226,9 @@ CREATE TABLE `report` (
 --
 
 INSERT INTO `report` (`report_id`, `report_from`, `report_to`, `report_message`) VALUES
-(1, 1, 10, 'fake request');
+(1, 1, 10, 'fake request'),
+(2, 9, 3, 'fake apartment'),
+(3, 12, 3, 'ijinuun');
 
 -- --------------------------------------------------------
 
@@ -244,7 +252,9 @@ INSERT INTO `resident` (`resident_id`, `user_id`, `username`, `phone_num`) VALUE
 (2, 7, 'Siam', 153246),
 (3, 8, 'Kazi', 1932145),
 (4, 9, 'Partho', 182134),
-(5, 10, 'Shuvo', 1532458);
+(5, 10, 'Shuvo', 1532458),
+(6, 11, 'Mr Karim', 12345),
+(7, 12, 'Kazi Rifat mmm', 26256268);
 
 -- --------------------------------------------------------
 
@@ -267,14 +277,16 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `email`, `passwords`, `account_type`, `profile_pic`) VALUES
 (1, 'rifat@gmail.com', '$2y$10$lKzVhpSQAZT1tOFqkzzAcufmuWcEctKArsh1NsK9EV7WNj2KpRWY.', 'Owner', 'profile.png'),
 (2, 'imran@gmail.com', '$2y$10$pF1X32dpS0RQ6FD.BJlHsu28x05YU.GKKB6/EDkcFhBEM2kfciHsa', 'Owner', 'profile.png'),
-(3, 'shaon@gmail.com', '$2y$10$LfeUfIysT3LvqKixASjsv.eI2HBKyqxV2h7svO2ctHmlG6s2fxNmC', 'Owner', 'profile.png'),
-(4, 'raduan@gmail.com', '$2y$10$jxLSIO9cZPewni7Uu8a9mufRPILV2grusXHvoGKeTiDrykX/vIeim', 'Owner', 'profile.png'),
+(3, 'shaon@gmail.com', '$2y$10$d017Wdtp1.JGGY62UDJqEuvkgdC9OVf6POeZIrEqf9debjycsfwUy', 'Owner', 'pexels-photo-771742.jpeg'),
+(4, 'raduan@gmail.com', '$2y$10$jxLSIO9cZPewni7Uu8a9mufRPILV2grusXHvoGKeTiDrykX/vIeim', 'Owner', 'stylish-default-user-profile-photo-avatar-vector-illustration_664995-352 (1).avif'),
 (5, 'nur@gmail.com', '$2y$10$BkddjZMyaE5Kzp.LxEgLKuDC74Ad0YrS.ABE4.5Ezn7/7.I8JuS0a', 'Owner', 'profile.png'),
 (6, 'munna@gmail.com', '$2y$10$RYw/1Y3398HVTEX5065vVewSE5pjeSodMUrCaGAfH/XIzFiTKVO0u', 'Resident', 'profile.png'),
 (7, 'siam@gmail.com', '$2y$10$V7ca6imJdwCWe8xBNtFtouUZgi/lUJV68AqMyj8vf3VYBlIT4bDoe', 'Resident', 'profile.png'),
 (8, 'kazi@gmail.com', '$2y$10$iRrsEDI.Z9glCUKGYiUZQ.HgTqr.4LrgNyc8QgYSsAvZBpU1vmrjG', 'Resident', 'profile.png'),
 (9, 'partho@gmail.com', '$2y$10$kRSKkrWbuWLiaCCl6HE18OSzOgRh1/BjpFUSQEGG5Ihg5GQbgGI1e', 'Resident', 'profile.png'),
-(10, 'shuvo@gmail.com', '$2y$10$09jBWBXpc6zJ5wZCKGRZDek9O.G4TN7PYbQ7ZXwInqajv1PaQ26j6', 'Resident', 'profile.png');
+(10, 'shuvo@gmail.com', '$2y$10$09jBWBXpc6zJ5wZCKGRZDek9O.G4TN7PYbQ7ZXwInqajv1PaQ26j6', 'Resident', 'profile.png'),
+(11, 'karim@gmail.com', '$2y$10$oIOOA.UHanKQsbd0yzgVx.d83tq8hCbKbTg4OVgWbnautdnv2UD8i', 'Resident', 'profile.png'),
+(12, 'azi@gmail.com', '$2y$10$TTxtJ1ejTF//p91MFSaoxOO/9H.SmJeWwPwspQNus4TxWNGsIVYp2', 'Resident', 'pexels-photo-771742.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -346,19 +358,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appartment`
 --
 ALTER TABLE `appartment`
-  MODIFY `appart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `appart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `conversation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `conversation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `owner`
@@ -370,19 +382,19 @@ ALTER TABLE `owner`
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `resident`
 --
 ALTER TABLE `resident`
-  MODIFY `resident_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `resident_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
