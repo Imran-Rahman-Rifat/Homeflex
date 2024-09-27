@@ -20,13 +20,29 @@ Watch the full walkthrough of HomeFlex in action:
 
 Click the image above or [watch the demo here](https://www.youtube.com/watch?v=kpkOmYzobsM&t=1s).
 
-## Screenshots (Optional)
+## Screenshots
 
-*Browse the user interface and functionality below:*
+### Homepage
+![Homepage](screenshot/homepage.png)
 
+### Registration
+![Homepage](screenshot/register.png)
 
-## Installation
+### Login
+![Homepage](screenshot/login.png)
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/homeflex.git
+### Profile
+![Homepage](screenshot/profile.png)
+
+### Search and Filter
+![Search and Filter](screenshot/manage_rentals.png)
+
+### Apartment Details
+![Booking Requests](screenshot/details.png)
+
+### Messaging System
+![Messaging System](screenshot/message.png)
+
+### Notification System
+![Homepage](screenshot/notifications.png)
+
